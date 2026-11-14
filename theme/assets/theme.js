@@ -1,0 +1,2 @@
+(function(){'use strict';const button=document.querySelector('.menu-toggle'),nav=document.querySelector('#site-nav');if(!button||!nav)return;button.addEventListener('click',()=>{const open=button.getAttribute('aria-expanded')==='true';button.setAttribute('aria-expanded',String(!open));nav.classList.toggle('open',!open);});nav.addEventListener('click',()=>{nav.classList.remove('open');button.setAttribute('aria-expanded','false');});})();
+
