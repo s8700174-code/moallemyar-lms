@@ -1,0 +1,17 @@
+# Runtime, identity data and local configuration
+.env*
+!.env.example
+wp-config.php
+uploads/
+backups/
+logs/
+*.log
+*.sql
+*.sqlite*
+*.csv
+*.h5p
+*.zip
+node_modules/
+vendor/
+.DS_Store
+Thumbs.db
