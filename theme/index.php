@@ -1,0 +1,2 @@
+<?php defined('ABSPATH') || exit; get_header(); ?><main class="content-page"><div class="container"><section class="content-card"><h1><?php bloginfo('name'); ?></h1><?php if(have_posts()){while(have_posts()){the_post();?><article><h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2><?php the_excerpt(); ?></article><?php }}else{?><p>محتوایی برای نمایش وجود ندارد.</p><?php } ?></section></div></main><?php get_footer(); ?>
+

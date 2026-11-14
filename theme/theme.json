@@ -1,0 +1,17 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 3,
+  "settings": {
+    "appearanceTools": true,
+    "layout": {"contentSize": "760px", "wideSize": "1180px"},
+    "color": {"palette": [
+      {"slug": "brand", "name": "سبز معلم‌یار", "color": "#17766f"},
+      {"slug": "navy", "name": "سرمه‌ای", "color": "#173b50"},
+      {"slug": "background", "name": "پس‌زمینه", "color": "#f5f7f4"},
+      {"slug": "gold", "name": "طلایی", "color": "#d5a342"}
+    ]},
+    "typography": {"fontFamilies": [{"fontFamily": "Tahoma, Arial, sans-serif", "slug": "system-fa", "name": "قلم فارسی سیستم"}]}
+  },
+  "styles": {"color": {"background": "#f5f7f4", "text": "#203a49"}, "typography": {"fontFamily": "Tahoma, Arial, sans-serif"}}
+}
+
