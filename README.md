@@ -51,7 +51,7 @@ National identifiers are stored as a keyed HMAC plus the last four digits. An op
 
 H5P events may supply scores, final responses and completion data. The application tracks final-response replacement counts; it does not secretly capture text deleted before submission. The privacy notice is configurable. The login template loads the Vazirmatn font from Google Fonts, so that screen is not entirely offline; adapt font delivery for restricted networks.
 
-Public-copy changes are limited to documentation and replacing mock support phone/contact claims with clearly labeled placeholders. Personal fixtures, CSV rosters, local runtime, acceptance evidence and archives are deliberately excluded.
+Public-copy changes cover documentation, clearly labeled support placeholders, a neutral preview name and landing-page wording aligned with implemented features. AI-generated teaching recommendations are not enabled. Personal fixtures, CSV rosters, local runtime, acceptance evidence and archives are deliberately excluded.
 
 ## Validation and pilot checklist
 
