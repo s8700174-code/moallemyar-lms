@@ -1,0 +1,1017 @@
+/* ==========================================================================
+   سامانه آموزشی هوشمند | استایل صفحه ورود متمرکز (Centered Modern Login)
+   ========================================================================== */
+
+:root {
+  /* پالت اصلی برند (قابل ویرایش مستقیم یا از طریق ابزار زنده) */
+  --color-primary: #D45D79;            /* [Primary Hex Code] - سرخ‌فام تمشکی گرم */
+  --color-primary-hover: #BF4763;
+  --color-primary-light: #FDF2F4;
+  --color-primary-rgb: 212, 93, 121;
+
+  --color-secondary: #E8998D;          /* [Secondary Hex Code] - هلویی گرم و شاداب */
+  --color-secondary-hover: #D78275;
+  --color-secondary-light: #FFF5F3;
+  --color-secondary-rgb: 232, 153, 141;
+
+  --color-background: #FDF9F7;         /* [Background Hex Code] - پس‌زمینه کرم روشن */
+  --color-background-rgb: 253, 249, 247;
+
+  /* تم متمایز معلمان */
+  --color-teacher-accent: #6366F1;     /* نیلی مدرن معلمان */
+  --color-teacher-hover: #4F46E5;
+  --color-teacher-light: #EEF2FF;
+  --color-teacher-rgb: 99, 102, 241;
+
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #F8FAFC;
+  --color-border: #E2E8F0;
+
+  --color-text-title: #0F172A;
+  --color-text-body: #334155;
+  --color-text-muted: #64748B;
+  --color-text-light: #94A3B8;
+
+  --color-success: #10B981;
+  --color-error: #EF4444;
+
+  /* مشخصات هندسی و طراحی بر اساس درخواست */
+  --radius-default: 16px;              /* گوشه‌های ۱۶ پیکسلی دقیق */
+  --radius-inner: 12px;
+  --radius-full: 9999px;
+
+  /* سایه‌های ملایم و مدرن */
+  --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -3px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 20px 45px -12px rgba(15, 23, 42, 0.09), 0 8px 16px -6px rgba(15, 23, 42, 0.04);
+  --shadow-primary: 0 10px 25px -5px rgba(var(--color-primary-rgb), 0.35);
+
+  --font-family-fa: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   بازنشانی و ساختار پایه (Base Reset)
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  direction: rtl;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-family-fa);
+  background-color: var(--color-background);
+  color: var(--color-text-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+/* هاله‌های نوری و لطیف در پس‌زمینه */
+body::before {
+  content: "";
+  position: fixed;
+  top: -15%;
+  right: 15%;
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.09) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  bottom: -20%;
+  left: 10%;
+  width: 55vw;
+  height: 55vw;
+  max-width: 650px;
+  max-height: 650px;
+  background: radial-gradient(circle, rgba(var(--color-secondary-rgb), 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+button, input {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   پرده تمام‌صفحه تیزر اختصاصی نشان‌واره برند (Logo-Only Splash Teaser)
+   -------------------------------------------------------------------------- */
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #FFFFFF 0%, var(--color-background) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1), 
+              visibility 0.75s ease, 
+              transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.splash-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.06);
+}
+
+.splash-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.splash-ambient-aura {
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.35) 0%, rgba(var(--color-secondary-rgb), 0.2) 40%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: auraPulse 2.8s ease-in-out infinite alternate;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.splash-logo-card {
+  position: relative;
+  z-index: 2;
+  width: 360px;
+  max-width: 86vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px -10px rgba(var(--color-primary-rgb), 0.35),
+              0 12px 25px -5px rgba(0, 0, 0, 0.08);
+  animation: logoDramaticEntrance 2.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  background: transparent;
+}
+
+.splash-logo-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* درخشش نوری کریستالی که از روی نشان‌واره عبور می‌کند */
+.splash-light-sheen {
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.7) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%) translateY(-100%) rotate(25deg);
+  animation: lightSweep 2.4s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+  pointer-events: none;
+}
+
+@keyframes logoDramaticEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.72) translateY(24px);
+    filter: blur(8px);
+  }
+  28% {
+    opacity: 1;
+    transform: scale(1.04) translateY(0);
+    filter: blur(0px);
+  }
+  50% {
+    transform: scale(0.99) translateY(-4px);
+  }
+  75% {
+    transform: scale(1.01) translateY(-1px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes lightSweep {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(25deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(25deg);
+    opacity: 0;
+  }
+}
+
+@keyframes auraPulse {
+  0% {
+    transform: scale(0.88);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0.95;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   نوار ابزار بالای صفحه با نمایش مستقیم شماره پشتیبان و بازپخش تیزر
+   -------------------------------------------------------------------------- */
+.top-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.top-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.btn-replay-teaser {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-text-body);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.btn-replay-teaser:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--color-text-body);
+  box-shadow: var(--shadow-sm);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  display: inline-block;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.top-support {
+  display: flex;
+  align-items: center;
+}
+
+.support-badge-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-body);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.support-badge-link:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.support-number {
+  font-size: 0.95rem;
+  font-weight: 800;
+  direction: ltr;
+  color: var(--color-primary);
+  letter-spacing: 0.03em;
+}
+
+/* --------------------------------------------------------------------------
+   کانتینر مرکزی صفحه و کارت ورود (Centered Layout & Card)
+   -------------------------------------------------------------------------- */
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1.5rem 3.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 480px;                    /* کادر بهینه و استاندارد متمرکز */
+  background: var(--color-surface);
+  border-radius: 20px;                 /* گوشه بیرونی ملایم */
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  padding: 2.5rem 2.2rem;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+/* --------------------------------------------------------------------------
+   سربرگ کارت و نشان‌واره (Card Brand Header)
+   -------------------------------------------------------------------------- */
+.card-brand-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 1.2rem;
+}
+
+.logo-brand-img {
+  height: 58px;
+  max-width: 190px;
+  object-fit: contain;
+  border-radius: 12px;
+  transition: var(--transition-smooth);
+}
+
+.logo-switch-btn {
+  position: absolute;
+  top: -6px;
+  left: -12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.logo-switch-btn:hover {
+  transform: rotate(180deg);
+  border-color: var(--color-primary);
+}
+
+.card-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--color-text-title);
+  margin-bottom: 0.5rem;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   کلیدهای انتخاب نقش: ورود والدین / ورود معلم (Segmented Control)
+   -------------------------------------------------------------------------- */
+.role-selector-wrapper {
+  margin-bottom: 2rem;
+}
+
+.segmented-control {
+  position: relative;
+  display: flex;
+  background: #F1F5F9;
+  padding: 5px;
+  border-radius: var(--radius-default); /* ۱۶ پیکسل دقیق */
+  border: 1px solid #E2E8F0;
+  user-select: none;
+}
+
+.segmented-glider {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  right: 5px;
+  width: calc(50% - 5px);
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+  z-index: 1;
+}
+
+/* جابجایی اسلایدر در حالت RTL */
+[data-active-role="parent"] .segmented-glider {
+  transform: translateX(0);
+}
+
+[data-active-role="teacher"] .segmented-glider {
+  transform: translateX(calc(-100% - 2px));
+}
+
+.role-btn {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  transition: color 0.25s ease;
+  border-radius: 12px;
+}
+
+.role-btn .role-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.role-btn:hover .role-icon {
+  transform: scale(1.1);
+}
+
+[data-active-role="parent"] .role-btn[data-role="parent"] {
+  color: var(--color-primary);
+}
+
+[data-active-role="teacher"] .role-btn[data-role="teacher"] {
+  color: var(--color-teacher-accent);
+}
+
+/* --------------------------------------------------------------------------
+   فرم دریافت کد ملی (National Code Input Forms)
+   -------------------------------------------------------------------------- */
+.forms-wrapper {
+  margin-bottom: 2rem;
+}
+
+.login-panel {
+  display: none;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.login-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-text-title);
+  margin-bottom: 0.6rem;
+}
+
+.label-hint {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-control {
+  width: 100%;
+  height: 54px;
+  padding: 0 1rem 0 3.2rem;
+  background: #FFFFFF;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-default); /* ۱۶ پیکسل دقیق */
+  color: var(--color-text-title);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  direction: ltr;
+  text-align: right;
+  outline: none;
+  transition: var(--transition-smooth);
+  box-shadow: var(--shadow-sm);
+}
+
+.input-control::placeholder {
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  color: var(--color-text-light);
+}
+
+.input-control:hover {
+  border-color: #CBD5E1;
+}
+
+.input-control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.12);
+}
+
+.teacher-theme .input-control:focus {
+  border-color: var(--color-teacher-accent);
+  box-shadow: 0 0 0 4px rgba(var(--color-teacher-rgb), 0.15);
+}
+
+.input-icon-left {
+  position: absolute;
+  left: 1.1rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* دکمه‌های ورود */
+.btn-submit {
+  width: 100%;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-default); /* ۱۶ پیکسل دقیق */
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: var(--shadow-primary);
+  transition: var(--transition-smooth);
+}
+
+.btn-submit:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -6px rgba(var(--color-primary-rgb), 0.45);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.btn-submit-teacher {
+  background-color: var(--color-teacher-accent);
+  box-shadow: 0 10px 25px -5px rgba(var(--color-teacher-rgb), 0.35);
+}
+
+.btn-submit-teacher:hover {
+  background-color: var(--color-teacher-hover);
+  box-shadow: 0 14px 28px -6px rgba(var(--color-teacher-rgb), 0.45);
+}
+
+/* --------------------------------------------------------------------------
+   بخش ارتباط با پشتیبانی و نمایش شماره پشتیبان در پایین کارت
+   -------------------------------------------------------------------------- */
+.support-card-footer {
+  border-top: 1px solid #F1F5F9;
+  padding-top: 1.5rem;
+}
+
+.support-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-default); /* ۱۶ پیکسل دقیق */
+  padding: 1.1rem 1.2rem;
+  transition: var(--transition-smooth);
+}
+
+.support-box:hover {
+  border-color: #CBD5E1;
+  background: #FFFFFF;
+}
+
+.support-icon-bubble {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.support-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.support-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-title);
+}
+
+.support-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.support-text-prefix {
+  color: var(--color-text-muted);
+}
+
+.support-phone-highlight {
+  font-weight: 800;
+  color: var(--color-primary);
+  font-size: 1.05rem;
+  direction: ltr;
+  letter-spacing: 0.02em;
+}
+
+.support-phone-highlight:hover {
+  text-decoration: underline;
+}
+
+.support-timing {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   ابزار زنده تنظیم رنگ برند (Theme Tuner)
+   -------------------------------------------------------------------------- */
+.theme-tuner-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.theme-tuner-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1E293B;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.75rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transition: var(--transition-smooth);
+}
+
+.theme-tuner-toggle-btn:hover {
+  transform: translateY(-2px);
+  background: #0F172A;
+}
+
+.theme-tuner-card {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 320px;
+  background: #FFFFFF;
+  border-radius: var(--radius-default);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-border);
+  padding: 1.2rem;
+  display: none;
+  animation: tunerPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.theme-tuner-card.open {
+  display: block;
+}
+
+@keyframes tunerPop {
+  from { opacity: 0; transform: translateY(12px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.tuner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.tuner-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.tuner-close {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.color-input-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.color-input-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.color-input-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-title);
+}
+
+.color-input-token {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  font-family: monospace;
+  direction: ltr;
+  text-align: right;
+}
+
+.color-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.color-picker-swatch {
+  -webkit-appearance: none;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+}
+
+.color-picker-swatch::-webkit-color-swatch {
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 8px;
+}
+
+.hex-text-input {
+  width: 76px;
+  height: 30px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  direction: ltr;
+  text-align: center;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.tuner-presets-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-top: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.preset-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+  margin-bottom: 0.85rem;
+}
+
+.btn-preset {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.5rem;
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-body);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-preset:hover {
+  background: #FFFFFF;
+  border-color: #94A3B8;
+}
+
+.preset-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.btn-copy-css {
+  width: 100%;
+  padding: 0.5rem;
+  background: #F1F5F9;
+  border: 1px dashed #CBD5E1;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-body);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+/* --------------------------------------------------------------------------
+   نوتیفیکیشن بازخورد (Toast Feedback)
+   -------------------------------------------------------------------------- */
+.toast-notice {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: #1E293B;
+  color: #FFFFFF;
+  padding: 0.75rem 1.4rem;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 200;
+}
+
+.toast-notice.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   واکنش‌پذیری در موبایل (Mobile Responsiveness)
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .top-bar {
+    padding: 1rem 1.2rem;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: center;
+  }
+
+  .main-wrapper {
+    padding: 0.8rem 1rem 3rem;
+  }
+
+  .login-card {
+    padding: 2rem 1.4rem;
+    border-radius: 18px;
+  }
+
+  .card-title {
+    font-size: 1.35rem;
+  }
+
+  .role-btn {
+    font-size: 0.92rem;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .input-control {
+    height: 50px;
+    font-size: 1.05rem;
+  }
+
+  .btn-submit {
+    height: 50px;
+    font-size: 0.98rem;
+  }
+
+  .support-box {
+    padding: 0.9rem 1rem;
+  }
+
+  .theme-tuner-card {
+    right: auto;
+    left: -10px;
+    width: 290px;
+  }
+}
